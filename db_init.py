@@ -1,12 +1,39 @@
-# initialistion de la db
-from utils import get_db, get_all
+from pymongo import MongoClient
 
-db = get_db()
+def initialisation_de_la_db():
+    client = MongoClient("mongodb://localhost:27017/")
+    db = client["game_db"]
+    col = db["personnage"]
 
+    db.heros.drop
+    db.monstre.drop
 
-monstres = get_all("monstres", db)
-for m in monstres:
-    print(m)
+    list_heros = [
+        {"nom": "guerrier", "ATK": "15", "DEF": "10", "PV": "100"},
+        {"nom": "mage", "ATK": "20", "DEF": "5", "PV": "80"},
+        {"nom": "archer", "ATK": "18", "DEF": "7", "PV": "90"},
+        {"nom": "voleur", "ATK": "22", "DEF": "8", "PV": "85"},
+        {"nom": "paladin", "ATK": "14", "DEF": "12", "PV": "110"},
+        {"nom": "sorcier", "ATK": "25", "DEF": "3", "PV": "70"},
+        {"nom": "chevalier", "ATK": "17", "DEF": "15", "PV": "120"},
+        {"nom": "moine", "ATK": "19", "DEF": "9", "PV": "95"},
+        {"nom": "berserker", "ATK": "23", "DEF": "6", "PV": "105"},
+        {"nom": "chasseur", "ATK": "16", "DEF": "11", "PV": "100"}
+    ]
 
-perso = db["perso"].find_one({"_id": 3})
-print(perso)
+    list_monstres=[
+        {"nom": "Gobelin", "ATK": "10", "DEF": "5", "PV": "50"},
+        {"nom": "Orc", "ATK": "20", "DEF": "8", "PV": "120"},
+        {"nom": "Dragon", "ATK": "35", "DEF": "20", "PV":"300"},
+        {"nom": "Zombies", "ATK": "12", "DEF": "6", "PV": "70"},
+        {"nom": "Troll", "ATK": "25", "DEF": "15", "PV": "200"},
+        {"nom": "Spectre", "ATK": "18", "DEF": "10", "PV": "100"},
+        {"nom": "Golem", "ATK": "30", "DEF": "25", "PV": "250"},
+        {"nom": "Vampire", "ATK": "22", "DEF": "12", "PV": "150"},
+        {"nom": "Loup-garou", "ATK": "28", "DEF": "18", "PV": "180"},
+        {"nom": "Squelette", "ATK": "15", "DEF": "7", "PV": "90"}
+    ]
+    db.personnage.insert_many(list_heros)
+    db.personnage.insert_many(list_monstres)
+
+    print("c bon")
