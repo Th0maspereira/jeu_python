@@ -1,3 +1,4 @@
+from game import monstre_random
 from utils import get_db,get_all
 def main():
 
@@ -37,7 +38,9 @@ def main():
                     # si la valeur est invalide
                     print(f"choix invalide. entrez un nombre entre {min_val} et {max_val}")
             print ("veuillez entre un nombre")
+
     afficher_menu()
+
     #on demande au joueur de creer un nom valide 
     def choix_nom_valide():
         # boucle qui se répète jusqu'a ce que le nom soit bon
@@ -51,7 +54,7 @@ def main():
             else:
                     #si le nom est invalide
                     print("le nom n'est pas valide")
-    
+    # on affiche la list des perso pour la premiere fois
     def db_heros():
         heros = get_all("heros", db)
 
@@ -61,7 +64,7 @@ def main():
             print(f"numero: {perso["id"]} Nom: {perso["nom"]} ATK: {perso["ATK"]} DEF: {perso["DEF"]} PV: {perso["PV"]}")
 
         return heros
-    
+    # on permet au user de choisir 
     def choisir_mon_equipe(heros_libres):
         #on creer la liste de c perso choisi
         teams_user = []
@@ -69,13 +72,14 @@ def main():
         #on veut faire une boucle qui repete le joueur dispo 3 
         while len(teams_user) < 3:
             heros_trouve = False
-            # on veut que la liste ce reaffiche une fois les heros choisis retirer
+            # on veut que la liste ce reaffiche une fois les heros choisis sont retirer
             if len(teams_user) > 0:
                 for libre in heros_libres:
                     print(f"numero: {libre["id"]} Nom: {libre["nom"]} ATK: {libre["ATK"]} DEF: {libre["DEF"]} PV: {libre["PV"]}")
             #on veut que le user puisse choisir son equipe avec un nb valide
             id_choisi =  choix_nb_valide(1,10)
             
+            #on creer une fonction pour que le heros passe de la table heros a la team
             for perso in heros_libres:
                 if int(perso["id"]) == id_choisi:
                     teams_user.append(perso)
@@ -112,11 +116,12 @@ def main():
             print(f"bienvenue {nom_du_joueur} le jeu va commencer")
             # on veut afficher la liste des heros
             liste_de_tous_les_heros = db_heros()
+            #affichage de l'equipe finaliser
             equipe_user_finaliser = choisir_mon_equipe(liste_de_tous_les_heros)
             afficher_l_equipe(equipe_user_finaliser)
+            #on veut afficher le monstre contre qui le joueur va devoir jouer
+            ennemie = monstre_random(db)
 
-
- 
         #voir le leaderboard
         elif choix == 2:
             print("voici le tableau des score")
