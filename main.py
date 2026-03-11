@@ -5,7 +5,7 @@ def main():
     #on creer le menu avec les choix
     def afficher_menu():
         #afficher le titre
-        print("\n ===========================" \
+        print("\n ==========================="
                 "\n     menu principale"
                 "\n ===========================")
         # afficher les possibiliter 
@@ -61,6 +61,34 @@ def main():
             print(f"numero: {perso["id"]} Nom: {perso["nom"]} ATK: {perso["ATK"]} DEF: {perso["DEF"]} PV: {perso["PV"]}")
 
         return heros
+    
+    def choisir_mon_equipe(heros_libres):
+        #on creer la liste de c perso choisi
+        teams_user = []
+
+        #on veut faire une boucle qui repete le joueur dispo 3 
+        for i in range (3):
+
+            # on veut que la liste ce reaffiche une fois les heros choisis retirer
+            if i > 0:
+                for libre in heros_libres:
+                    print(f"numero: {libre["id"]} Nom: {libre["nom"]} ATK: {libre["ATK"]} DEF: {libre["DEF"]} PV: {libre["PV"]}")
+            #on veut que le user puisse choisir son equipe avec un nb valide
+            id_choisi =  choix_nb_valide(1,10)
+            
+            for perso in heros_libres:
+                if int(perso["id"]) == id_choisi:
+                    teams_user.append(perso)
+                    heros_libres.remove(perso)
+                    print(f"le heros {perso["nom"]} fais officiellement partie de ton equipe")
+                    break
+        print("\n ================================"
+              "\n     ta team est composé de"
+              "\n ================================")
+        for team in teams_user:
+            print(f"{team["nom"]} ATK: {perso["ATK"]} DEF: {perso["DEF"]} PV: {perso["PV"]}")
+        return teams_user
+
 
 
     #on recupere le choix valide
@@ -76,9 +104,10 @@ def main():
 
             print(f"bienvenue {nom_du_joueur} le jeu va commencer")
             # on veut afficher la liste des heros
-            print_les_heros = db_heros()
-            #on veut que le user puisse choisir son equipe avec un nb valide
-            
+            liste_de_tous_les_heros = db_heros()
+            equipe_user_finaliser = choisir_mon_equipe(liste_de_tous_les_heros)
+
+
  
         #voir le leaderboard
         elif choix == 2:
