@@ -67,10 +67,10 @@ def main():
         teams_user = []
 
         #on veut faire une boucle qui repete le joueur dispo 3 
-        for i in range (3):
-
+        while len(teams_user) < 3:
+            heros_trouve = False
             # on veut que la liste ce reaffiche une fois les heros choisis retirer
-            if i > 0:
+            if len(teams_user) > 0:
                 for libre in heros_libres:
                     print(f"numero: {libre["id"]} Nom: {libre["nom"]} ATK: {libre["ATK"]} DEF: {libre["DEF"]} PV: {libre["PV"]}")
             #on veut que le user puisse choisir son equipe avec un nb valide
@@ -81,13 +81,20 @@ def main():
                     teams_user.append(perso)
                     heros_libres.remove(perso)
                     print(f"le heros {perso["nom"]} fais officiellement partie de ton equipe")
+                    heros_trouve = True
                     break
+            
+            if not heros_trouve:
+                 print("ce heros a deja ete selectionner prend en un autre")
+        return teams_user
+
+    #on veut afficher l'equipe 
+    def afficher_l_equipe(equipe):
         print("\n ================================"
               "\n     ta team est composé de"
               "\n ================================")
-        for team in teams_user:
-            print(f"{team["nom"]} ATK: {perso["ATK"]} DEF: {perso["DEF"]} PV: {perso["PV"]}")
-        return teams_user
+        for team in equipe:
+            print(f"{team["nom"]} ATK: {team["ATK"]} DEF: {team["DEF"]} PV: {team["PV"]}")
 
 
 
@@ -106,6 +113,7 @@ def main():
             # on veut afficher la liste des heros
             liste_de_tous_les_heros = db_heros()
             equipe_user_finaliser = choisir_mon_equipe(liste_de_tous_les_heros)
+            afficher_l_equipe(equipe_user_finaliser)
 
 
  
