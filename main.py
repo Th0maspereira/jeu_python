@@ -17,13 +17,13 @@ def afficher_menu():
 # on demande au user un nombre et on le vérifie  
 def choix_nb_valide(min_val, max_val):
 
-    # boucle qui se répète jusqu'à ce que le nombre soit bon
+    # boucle se répète jusqu'à ce que nombre bon
     while True:
 
         # demander un choix au user
         choix_user = input("faites un choix : ")
 
-        # vérifier si l'utilisateur a entré un nombre
+        # vérifier si le user a entré un nombre
         if choix_user.isdigit():
 
             nombre = int(choix_user)
@@ -31,17 +31,17 @@ def choix_nb_valide(min_val, max_val):
             # vérifier si le nombre est égal ou entre les bornes
             if min_val <= nombre <= max_val:
 
-                # si tout est bon on retourne la valeur
+                # si c bon
                 return nombre
 
             else:
-                # si la valeur est invalide
-                print(f"choix invalide. entrez un nombre entre {min_val} et {max_val}")
+                # si c pas bon
+                print(f"choix invalide entrez un nombre entre {min_val} et {max_val}")
         print ("veuillez entre un nombre")
 
 afficher_menu()
 
-#on demande au joueur de creer un nom valide 
+#on demande au joueur de creer un nom bon 
 def choix_nom_valide():
     # boucle qui se répète jusqu'a ce que le nom soit bon
     while True:
@@ -54,6 +54,7 @@ def choix_nom_valide():
         else:
                 #si le nom est invalide
                 print("le nom n'est pas valide")
+
 # on affiche la list des perso pour la premiere fois
 def db_heros():
     heros = get_all("heros", db)
@@ -64,6 +65,7 @@ def db_heros():
         print(f"numero: {perso["id"]} Nom: {perso["nom"]} ATK: {perso["ATK"]} DEF: {perso["DEF"]} PV: {perso["PV"]}")
 
     return heros
+
 # on permet au user de choisir 
 def choisir_mon_equipe(heros_libres):
     #on creer la liste de c perso choisi
@@ -96,7 +98,7 @@ def choisir_mon_equipe(heros_libres):
 def afficher_l_equipe(equipe):
     print("\n ================================"
           "\n     ta team est composé de"
-            "\n ================================")
+          "\n ================================")
     for team in equipe:
         print(f"{team["nom"]} ATK: {team["ATK"]} DEF: {team["DEF"]} PV: {team["PV"]}")
 
@@ -121,14 +123,19 @@ def lancer_choix(choix):
         afficher_l_equipe(equipe_user_finaliser)
         #on veut afficher le monstre contre qui le joueur va devoir jouer
         ennemie = monstre_random(db)
+        #on va afficher le combat
+        #combat_en_cours = 
+        #on va afficher le resultat
+        #resultat_final = 
 
     #voir le leaderboard
     elif choix == 2:
         print("voici le tableau des score")
+        #affichage de tableau des score
+
     #quiter le jeu
     elif choix == 3: 
         print("fermeture du programme")
         exit()
 lancer_choix(choix)
 
-afficher_menu()
